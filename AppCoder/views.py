@@ -24,3 +24,28 @@ def alta_curso(request, nombre):
     msj= f"Curso {curso.nombre}, {curso.camada} dado de alta"
     
     return HttpResponse(msj)
+
+
+def inicio(request):
+    return render(request, 'AppCoder/inicio.html')
+
+def estudiantes(request):
+    estudiantes = Estudiante.objects.all()  # Obtiene todos los estudiantes de la base de datos
+    dicc = {'estudiantes': estudiantes}  # Crea un diccionario con los estudiantes
+    plantilla = loader.get_template('AppCoder/estudiantes.html')  # Carga la plantilla HTML
+    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
+    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+
+def profesores(request):
+    profesores = Profesor.objects.all()  # Obtiene todos los profesores de la base de datos
+    dicc = {'profesores': profesores}  # Crea un diccionario con los profesores
+    plantilla = loader.get_template('AppCoder/profesores.html')  # Carga la plantilla HTML
+    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
+    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+
+def entregables(request):
+    entregables = Entregable.objects.all()  # Obtiene todos los entregables de la base de datos
+    dicc = {'entregables': entregables}  # Crea un diccionario con los entregables
+    plantilla = loader.get_template('AppCoder/entregables.html')  # Carga la plantilla HTML
+    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
+    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
