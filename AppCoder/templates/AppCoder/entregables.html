@@ -29,17 +29,6 @@
     </style>    
 </head>
 <body>
-    <h1>Lista de Entregables</h1>
-    <ul>
-        {% for entregable in entregables %}
-            <li>- Nombre:{{ entregable.nombre }}  - Fecha de Entrega: {{ entregable.fecha_de_entregaa }} - entregado: {{ entregable.entregado }}</li>
-        {% empty %}
-            <li>No hay entregables registrados.</li>
-        {% endfor %}
-    </ul>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
     <nav>   
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="{% url 'cursos' %}">Cursos</a></li>
@@ -49,9 +38,41 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
         </ul>
     </nav>
+    <h1>Lista de Entregables</h1>
+    <!--<ul>
+        {% for entregable in entregables %}
+            <li>- Nombre:{{ entregable.nombre }}  - Fecha de Entrega: {{ entregable.fecha_de_entregaa }} - entregado: {{ entregable.entregado }}</li>
+        {% empty %}
+            <li>No hay entregables registrados.</li>
+        {% endfor %}
+    </ul>-->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Fecha de Entrega</th>
+                    <th scope="col">Entregado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entregable in entregables %}
+                <tr>
+                    <td>{{ entregable.nombre }}</td>
+                    <td>{{ entregable.fecha_de_entrega }}</td>
+                    <td>{{ entregable.entregado }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+
     <footer class="bg-light text-center text-lg-start mt-5">    
         <div class="text-center p-3" style="background-color: #f8f9fa;">
             © 2023 App Coder. Todos los derechos reservados.
+        </div>
+    </footer>
         </div>
     </footer> 
 </body>
