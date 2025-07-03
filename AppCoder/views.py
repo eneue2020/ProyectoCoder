@@ -11,7 +11,7 @@ def cursos(request):
 def cursos(request):
     cursos = Curso.objects.all()  # Obtiene todos los cursos de la base de dato
     dicc= {'cursos': cursos}  # Crea un diccionario con los cursos
-    plantilla = loader.get_template('cursos.html')  # Carga la plantilla HTML
+    plantilla = loader.get_template('AppCoder/cursos.html')  # Carga la plantilla HTML
     documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
     return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
 
@@ -29,12 +29,10 @@ def alta_curso(request, nombre):
 def inicio(request):
     return render(request, 'AppCoder/inicio.html')
 
+
 def estudiantes(request):
-    estudiantes = Estudiante.objects.all()  # Obtiene todos los estudiantes de la base de datos
-    dicc = {'estudiantes': estudiantes}  # Crea un diccionario con los estudiantes
-    plantilla = loader.get_template('AppCoder/estudiantes.html')  # Carga la plantilla HTML
-    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
-    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+    estudiantes = Estudiante.objects.all()
+    return render(request, 'AppCoder/estudiantes.html', {'estudiantes': estudiantes})
 
 def profesores(request):
     profesores = Profesor.objects.all()  # Obtiene todos los profesores de la base de datos
@@ -49,3 +47,8 @@ def entregables(request):
     plantilla = loader.get_template('AppCoder/entregables.html')  # Carga la plantilla HTML
     documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
     return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+
+def contacto(request):
+    return render(request, 'AppCoder/contacto.html')  # Renderiza la plantilla de contacto
+
+
