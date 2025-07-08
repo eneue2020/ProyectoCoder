@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from AppCoder.models import Curso, Estudiante, Profesor, Entregable
 from django.template import loader
+from AppCoder.form import CursoForm
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+
 
 
 # Create your views here.
@@ -24,6 +28,18 @@ def alta_curso(request, nombre):
     msj= f"Curso {curso.nombre}, {curso.camada} dado de alta"
     
     return HttpResponse(msj)
+
+def curso_formulario(request):
+    if request.method == 'POST':
+       mi_formulario=curso_formulario = CursoForm(request.POST)  # Crea una instancia del formulario con los datos enviados
+       if mi_formulario.is_valid():  # Verifica si el formulario es válido
+            datos = mi_formulario.cleaned_data  # Obtiene los datos limpios del formulario
+            Curso = Curso(nombre=datos['nombre'], camada=datos['camada'])  # Crea un nuevo objeto Curso con los datos del formulario
+            Curso.save()  # Guarda el curso en la base de datos
+            return redirect('cursos')  # Redirige a la vista de cursos después de guardar el curso
+    else:
+        mi_formulario = CursoForm()
+    return render(request, 'AppCoder/curso_formulario.html', {'formulario': mi_formulario})  # Renderiza el formulario para crear un curso
 
 
 def inicio(request):
