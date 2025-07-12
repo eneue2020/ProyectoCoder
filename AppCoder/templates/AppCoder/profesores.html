@@ -1,0 +1,30 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<main>
+    <h1>Lista de Profesores</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Profesión</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profesor in profesores %}
+                <tr>
+                    <td>{{ profesor.nombre }}</td>
+                    <td>{{ profesor.email }}</td>
+                    <td>{{ profesor.profesion }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+  </main>
+  
+{% endblock %}
+

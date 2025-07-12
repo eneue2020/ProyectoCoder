@@ -1,0 +1,16 @@
+
+{% extends "padre.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Formulario de Alta de Curso</h2>
+    <form action="alta_curso" method="POST">
+        {% csrf_token %}
+        <p>Nombre:</p>
+        <input type="text" name="nombre" placeholder="Ingrese el nombre del curso" required>
+        <p>Camada:</p>      
+        <input type="number" name="camada" placeholder="Ingrese la camada del curso" required>
+        <input type="submit" value="Enviar">
+       <!--<a href="{% url 'cursos' %}">Volver a Cursos</a>-->
+    </form>
+{% endblock %}
