@@ -13,9 +13,12 @@ urlpatterns = [
     path('contacto/', views.contacto, name='contacto'),
     path("alta_curso/",views.curso_formulario,name="alta_curso"),
     path("eliminar_curso/<int:id>", views.eliminar_curso, name="eliminar_curso"),    
-    path("editar_curso/<int:id>", views.editar, name="editar_curso"),
+    path("editar_curso/<int:id>/", views.editar, name="editar_curso"),
     path("alta_estudiante/",views.estudiante_formulario,name="alta_estudiante"),
-    path("alta_profesor/",views.profesor_formulario,name='alta_profesor')
+    path("alta_profesor/",views.profesor_formulario,name='alta_profesor'),
+    path('buscar-curso/', views.buscar_curso, name='buscar_curso'),
+    path('buscar/', views.buscar, name='buscar')
+    
 ]
    
     

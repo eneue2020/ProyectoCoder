@@ -95,12 +95,12 @@ def buscar_curso(request):
 
 
 def buscar(request):
-    
-    if request.POST["nombre"]:
-        cursos = Curso.objects.filter(nombre__icontains=request.POST["nombre"])
-        return render(request, "resultado_busqueda.html", {"cursos":cursos})
+    query = request.GET.get("nombre", "").strip()
+    if query:
+        cursos = Curso.objects.filter(nombre__icontains=query)
+        return render(request, "resultado_busqueda.html", {"cursos": cursos, "query": query})
     else:
-        return HttpResponse("No se ha encontrado nada")
+        return HttpResponse("Por favor ingresá un nombre de curso para buscar.")
 
 
 def eliminar_curso(request, id):

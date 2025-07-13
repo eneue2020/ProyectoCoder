@@ -1,14 +1,15 @@
 {% extends "padre.html" %}
-
 {% load static %}
 
 {% block contenido %}
-    <h1>Buscar tu Curso</h1>
-
-    <form action="buscar" method="POST">
-        {% csrf_token %}
-        <p>Nombre:</p>
-        <input type="text" name="nombre" required>  
-        <input type="submit" value="Enviar">
+<div class="container my-4">
+  <h1 class="mb-3">Buscar Curso</h1>
+    <form action="{% url 'buscar' %}" method="get">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del curso</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
+</div>
 {% endblock %}
