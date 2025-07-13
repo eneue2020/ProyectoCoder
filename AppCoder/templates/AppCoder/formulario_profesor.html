@@ -3,13 +3,14 @@
 {% load static %}
 
 {% block contenido %}
-    <form action="{% url 'alta_curso' %}" method="POST">
+    <form action="{% url 'alta_profesor' %}" method="POST">
         {% csrf_token %}
         <p>Nombre:</p>
         <input type="text" name="nombre" required>
-        <p>Camada:</p>
-        <input type="number" name="camada" required>
-       
+        <p>Email:</p>
+        <input type="text" name="email" required>
+        <p>Profesion:</p>
+        <input type="text" name="profesion" required>
 
         <input type="submit" value="Enviar">
 
