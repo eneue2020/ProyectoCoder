@@ -5,6 +5,7 @@ from django.template import loader
 from AppCoder.form import Curso_Formulario, Estudiante_Formulario, Profesor_Formulario
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 
 
@@ -128,3 +129,6 @@ def editar( request , id ):
     return render(request , "AppCoder/editar_curso.html" , {"mi_formulario":mi_formulario, "curso":curso })
 
 
+def listar_usuarios(request):
+    usuarios = User.objects.all()
+    return render(request, 'AppCoder/lista_usuarios.html', {'usuarios': usuarios})

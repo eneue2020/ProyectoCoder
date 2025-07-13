@@ -37,7 +37,19 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             <h1 class="mb-5">App Coder</h1>
-                            
+                            <!-- Formulario de búsqueda -->
+                            <form action="{% url 'buscar' %}" method="get" class="d-flex justify-content-center">
+                                {% csrf_token %}
+                                <input
+                                type="text"
+                                name="nombre"
+                                class="form-control me-2"
+                                placeholder="Buscar curso..."
+                                required
+                                >
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                            </form>
+                            <!-- /Formulario de búsqueda -->
                         </div>
                     </div>
                 </div>
@@ -61,8 +73,9 @@
                             <li class="list-inline-item">
                                 <a href="{% url 'contacto' %}">Contacto</a>
                             </li>
-                                                        <li class="list-inline-item">
-                                <a href="{% url 'buscar_curso' %}">Buscar_curso</a>
+
+                            <li class="list-inline-item">
+                                <a href="{% url 'listar_usuarios' %}">Listar Usuarios</a>
                             </li>
                           
                         </ul>

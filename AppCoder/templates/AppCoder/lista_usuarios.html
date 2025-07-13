@@ -1,0 +1,24 @@
+{% extends 'padre.html' %}
+
+{% block contenido %}
+
+  <h1>Lista de Usuarios</h1>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Nombre de usuario</th>
+        <th>Correo electrónico</th>
+        <th>Fecha de registro</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+        <tr>
+          <td>{{ usuario.username }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.date_joined }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
