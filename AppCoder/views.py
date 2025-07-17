@@ -6,7 +6,8 @@ from AppCoder.form import Curso_Formulario, Estudiante_Formulario, Profesor_Form
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -132,3 +133,35 @@ def editar( request , id ):
 def listar_usuarios(request):
     usuarios = User.objects.all()
     return render(request, 'AppCoder/lista_usuarios.html', {'usuarios': usuarios})
+
+
+def login_request(request):
+    if request.method == "POST":
+        
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+                usuario = form.cleaned_data.get("username")
+                contra =  form.cleaned_data.get("password")
+                user = authenticate(username=usuario, password=contra)
+                if user is not None:
+                    login(request,user)
+                    return render(request, "inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                else:
+                    return render(request, "inicio.html", {"mensaje":f"Usuario no encontrado: {usuario}"})
+
+    form = AuthenticationForm()
+    return render(request, "login.html", {"form":form})
+
+
+def register(request):
+
+    if request.method == "POST":
+       
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Usuario creado exitosamente")
+    else:
+        form = UserCreationForm()
+    return render(request, "registro.html", {"form":form})
