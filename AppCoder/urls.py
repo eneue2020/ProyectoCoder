@@ -22,7 +22,9 @@ urlpatterns = [
     path('usuarios/', views.listar_usuarios, name='listar_usuarios'),
     path("login/", views.login_request, name="Login"),
     path("logout/", LogoutView.as_view(template_name="logout.html") , name="Logout"),
-    path("register/", views.register , name="Register")
+    path("register/", views.register , name="Register"),
+    path("editarPerfil/",views.editarPerfil,name="editarPerfil")
+
 ]
    
     

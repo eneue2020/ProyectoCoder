@@ -21,13 +21,23 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="#!">App Coder</a>
+                {% if request.user.is_authenthicated  %}
                 <a class="btn btn-primary" href="{% url 'profesores' %}" >Profesores</a>
                 <a class="btn btn-primary" href="{% url 'estudiantes' %}">Estudiantes</a>
                 <a class="btn btn-primary" href="{% url 'cursos' %}">Cursos</a>
                 <a class="btn btn-primary" href="{% url 'entregables' %}">Entregables</a>
+                {% endif %}
+                {% if not request.user.is_authenthicated  %}                
                 <a class="btn btn-success" href="{% url 'Login' %}">LogIn</a>
-                <a class="btn btn-danger" href="{% url 'Register' %}">Registro</a>      
-                <p>Usuario: {{ user.username }}</p>                
+                <a class="btn btn-danger" href="{% url 'Register' %}">Registro</a>  
+                {% endif %} 
+
+                {% if request.user.is_authenthicated  %}
+                <a class="btn btn-danger" href="{% url 'Logout' %}">LogOut</a>
+                <p>Usuario: {{ user.username }}</p>
+                {% endif %} 
+
+                                
             </div>
         </nav>
         <!-- Masthead-->
