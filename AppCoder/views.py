@@ -1,14 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render 
 from django.http import HttpResponse
 from AppCoder.models import Curso, Estudiante, Profesor, Entregable
 from django.template import loader
 from AppCoder.form import Curso_Formulario, Estudiante_Formulario, Profesor_Formulario,UserEditForm
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -18,10 +17,11 @@ def inicio(request):
 
 def cursos(request):
     cursos = Curso.objects.all()  # Obtiene todos los cursos de la base de dato
-    dicc= {'cursos': cursos}  # Crea un diccionario con los cursos
-    plantilla = loader.get_template('AppCoder/cursos.html')  # Carga la plantilla HTML
-    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
-    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+    return render(request, "AppCoder/cursos.html", {"cursos": cursos})
+   # dicc= {'cursos': cursos}  # Crea un diccionario con los cursos
+    #plantilla = loader.get_template('AppCoder/cursos.html')  # Carga la plantilla HTML
+    #documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
+    #return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
 
 
 
@@ -29,7 +29,8 @@ def alta_curso(request, nombre):
     curso=Curso(nombre=nombre, camada=9999)
     curso.save()  # Guarda el curso en la base de datos
     msj= f"Curso {curso.nombre}, {curso.camada} dado de alta"
-    return HttpResponse(msj)
+    return redirect('cursos')
+   # return render(request, "AppCoder/inicio.html", {"mensaje": msj})
 
 def curso_formulario(request):
     if request.method == 'POST':
@@ -39,8 +40,8 @@ def curso_formulario(request):
             datos = mi_formulario.cleaned_data  # Obtiene los datos limpios del formulario
             curso = Curso(nombre=datos['nombre'], camada=datos['camada'])  # Crea un nuevo objeto Curso con los datos del formulario
             curso.save()  # Guarda el curso en la base de datos
-            return render( request , "AppCoder/padre.html")  
-       
+            #return render( request , "AppCoder/padre.html")  
+            return redirect('cursos')
     return render(request, 'AppCoder/formulario.html')  # Renderiza el formulario para crear un curso
 
 
@@ -59,13 +60,14 @@ def estudiante_formulario(request):
             return render(request, 'AppCoder/padre.html')
     return render(request,'AppCoder/formulario_estudiante.html')
 
-
+@login_required
 def profesores(request):
     profesores = Profesor.objects.all()  # Obtiene todos los profesores de la base de datos
-    dicc = {'profesores': profesores}  # Crea un diccionario con los profesores
-    plantilla = loader.get_template('AppCoder/profesores.html')  # Carga la plantilla HTML
-    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
-    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+    return render(request, "AppCoder/profesores.html", {"profesores": profesores})
+    #dicc = {'profesores': profesores}  # Crea un diccionario con los profesores
+    #plantilla = loader.get_template('AppCoder/profesores.html')  # Carga la plantilla HTML
+    #documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
+    #return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
 
 
 def profesor_formulario(request):
@@ -83,10 +85,7 @@ def profesor_formulario(request):
 
 def entregables(request):
     entregables = Entregable.objects.all()  # Obtiene todos los entregables de la base de datos
-    dicc = {'entregables': entregables}  # Crea un diccionario con los entregables
-    plantilla = loader.get_template('AppCoder/entregables.html')  # Carga la plantilla HTML
-    documento = plantilla.render(dicc)  # Renderiza la plantilla con el diccionario
-    return HttpResponse(documento)  # Devuelve la respuesta HTTP con el contenido renderizado
+    return render(request, "AppCoder/entregables.html", {"entregables": entregables})
 
 def contacto(request):
     return render(request, 'AppCoder/contacto.html')  # Renderiza la plantilla de contacto
@@ -136,21 +135,28 @@ def listar_usuarios(request):
 
 
 def login_request(request):
+
     if request.method == "POST":
         
         form = AuthenticationForm(request, data=request.POST)
+
         if form.is_valid():
+
                 usuario = form.cleaned_data.get("username")
                 contra =  form.cleaned_data.get("password")
+
                 user = authenticate(username=usuario, password=contra)
+
                 if user is not None:
                     login(request,user)
-                    return render(request, "inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                    return render(request, "AppCoder/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
                 else:
-                    return render(request, "inicio.html", {"mensaje":f"Usuario no encontrado: {usuario}"})
+                    return render(request, "AppCoder/error.html", {"mensaje":f"Usuario no encontrado: {usuario}"})
+
 
     form = AuthenticationForm()
-    return render(request, "login.html", {"form":form})
+
+    return render(request, "AppCoder/login.html", {"form":form})
 
 
 def register(request):
@@ -165,6 +171,7 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, "registro.html", {"form":form})
+
 
 @login_required
 def editarPerfil( request ):
