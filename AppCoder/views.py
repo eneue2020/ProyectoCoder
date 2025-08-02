@@ -8,6 +8,9 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 # Create your views here.
 
@@ -128,7 +131,7 @@ def editar( request , id ):
 
     return render(request , "AppCoder/editar_curso.html" , {"mi_formulario":mi_formulario, "curso":curso })
 
-
+@staff_member_required
 def listar_usuarios(request):
     usuarios = User.objects.all()
     return render(request, 'AppCoder/lista_usuarios.html', {'usuarios': usuarios})
@@ -188,12 +191,13 @@ def editarPerfil( request ):
             password = informacion["password1"]
             usuario.set_password(password)
             usuario.save()
-            return render(request, "inicio.html")            
+            update_session_auth_hash(request, usuario)  # Mantiene la sesión activa tras cambiar la contraseña
+            return redirect('inicio')          
 
     else:
         miFormulario = UserEditForm(initial={'email':usuario.email})
     
-    return render(request, "editar_perfil.html" ,{"miFormulario":miFormulario, "usuario":usuario})
+    return render(request, "AppCoder/editar_perfil.html" ,{"miFormulario":miFormulario, "usuario":usuario})
 
     
 

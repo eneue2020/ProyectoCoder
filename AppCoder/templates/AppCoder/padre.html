@@ -39,9 +39,15 @@
                     <button type="submit" class="btn btn-warning">Log Out</button>
                 </form>
                 <p>Usuario: {{ user.username }}</p>
-                {% endif %} 
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <a class="btn btn-info" href="{% url 'listar_usuarios' %}">Listar Usuarios</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-info" href="{% url 'editarPerfil' %}">Editar Perfil</a>
+ 
+                {% endif %}
 
-                                
             </div>
         </nav>
         <!-- Masthead-->
