@@ -73,4 +73,21 @@ Alta de profesores mediante formulario.
 
 Este README.md proporciona una visión general clara y concisa de tu proyecto, facilitando a otros desarrolladores la comprensión y contribución al mismo.
 
+# Testing del Proyecto:
+
+Se crearon dos tipos de usuarios para las pruebas:
+
+Tipo admnistrador: tiene la facultad de poder listar todos los usuarios
+cargados en la base de datos, y puede editar solo su perfil. Y tiene permisos totales sobre todas las funciones.
+
+Tipo operador: tiene permisos de cargar y modificar en todas las funciones, pero no tiene permitido borrar.
+También puede editar su perfil.
+
+Listado de Usuarios para testing:
+Administrador: eneue2025
+Clave: Pass1234$2
+
+Operador: operador2
+Clave: Pass4321
+
 
