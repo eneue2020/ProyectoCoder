@@ -1,0 +1,9 @@
+<!-- filepath: c:\Users\Usuario\Desktop\ProyectoCoder\ProyectoCoder\AppCoder\templates\404.html -->
+{% extends "padre.html" %}
+{% block contenido %}
+<div class="container text-center mt-5">
+    <h1>Error 404</h1>
+    <p>La página que buscas no existe.</p>
+    <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}
