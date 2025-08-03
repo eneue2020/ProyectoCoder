@@ -17,7 +17,9 @@
             <td>{{n.id}}</td>
             <td>{{n.nombre}}</td>
             <td>{{n.camada}}</td>
+            {% if request.user.is_superuser %}
             <td><a href="{% url 'eliminar_curso' n.id %}" class="btn btn-danger">BORRAR</a></td>
+            {% endif %}
             <td><a href="{% url 'editar_curso' n.id %}" class="btn btn-warning">EDITAR</a></td>
         </tr>
         {% endfor %}
