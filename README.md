@@ -71,6 +71,12 @@ Listado de profesores.
 
 Alta de profesores mediante formulario.
 
+Entregables:
+
+Listado de entregables. No se han desarrollado las altas y modificaciones
+de los entregables, porque queda fuera del alcance de este final. Porque
+se debería analizar el login con el tipo de usuario profesor solamente.
+
 Este README.md proporciona una visión general clara y concisa de tu proyecto, facilitando a otros desarrolladores la comprensión y contribución al mismo.
 
 # Testing del Proyecto:

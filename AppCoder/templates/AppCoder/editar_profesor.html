@@ -1,0 +1,14 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<h1>Editar Profesor</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ mi_formulario.as_table }}
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

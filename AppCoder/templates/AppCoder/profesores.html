@@ -20,6 +20,14 @@
                     <td>{{ profesor.nombre }}</td>
                     <td>{{ profesor.email }}</td>
                     <td>{{ profesor.profesion }}</td>
+                    <td>
+                        <a href="{% url 'editar_profesor' profesor.id %}" class="btn btn-warning">Editar</a>
+                        {% if request.user.is_superuser %}
+                        <form action="{% url 'eliminar_profesor' profesor.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                        {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

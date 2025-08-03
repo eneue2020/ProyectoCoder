@@ -131,6 +131,57 @@ def editar( request , id ):
 
     return render(request , "AppCoder/editar_curso.html" , {"mi_formulario":mi_formulario, "curso":curso })
 
+@login_required
+def editar_profesor(request, id):
+    profesor = Profesor.objects.get(id=id)
+    if request.method == "POST":
+        mi_formulario = Profesor_Formulario(request.POST)
+        if mi_formulario.is_valid():
+            datos = mi_formulario.cleaned_data
+            profesor.nombre = datos['nombre']
+            profesor.email = datos['email']
+            profesor.profesion = datos['profesion']
+            profesor.save()
+
+            profesores = Profesor.objects.all()
+            return render(request, "AppCoder/profesores.html", {"profesores": profesores})
+    else:
+        mi_formulario = Profesor_Formulario(initial={'nombre': profesor.nombre, 'email': profesor.email, 'profesion': profesor.profesion})
+
+    return render(request, "AppCoder/editar_profesor.html", {"mi_formulario": mi_formulario, "profesor": profesor})
+
+def eliminar_profesor(request, id):
+    profesor = Profesor.objects.get(id=id)
+    profesor.delete()
+    profesores = Profesor.objects.all()
+    return render(request, "AppCoder/profesores.html", {"profesores": profesores})
+
+def eliminar_estudiante(request, id):
+    estudiante = Estudiante.objects.get(id=id)
+    estudiante.delete()
+    estudiantes = Estudiante.objects.all()
+    return render(request, "AppCoder/estudiantes.html", {"estudiantes": estudiantes})
+
+@login_required
+def editar_estudiante(request, id):
+    estudiante = Estudiante.objects.get(id=id)
+    if request.method == "POST":
+        mi_formulario = Estudiante_Formulario(request.POST)
+        if mi_formulario.is_valid():
+            datos = mi_formulario.cleaned_data
+            estudiante.nombre = datos['nombre']
+            estudiante.apellido = datos['apellido']
+            estudiante.email = datos['email']
+            estudiante.save()
+
+            estudiantes = Estudiante.objects.all()
+            return render(request, "AppCoder/estudiantes.html", {"estudiantes": estudiantes})
+    else:
+        mi_formulario = Estudiante_Formulario(initial={'nombre': estudiante.nombre, 'apellido': estudiante.apellido, 'email': estudiante.email})
+
+    return render(request, "AppCoder/editar_estudiante.html", {"mi_formulario": mi_formulario, "estudiante": estudiante})   
+
+
 @staff_member_required
 def listar_usuarios(request):
     usuarios = User.objects.all()
